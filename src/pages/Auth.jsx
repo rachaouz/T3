@@ -1,11 +1,14 @@
 // src/pages/Auth.jsx
+// MODIFICATION RBAC : intégration de useAuth().login() pour persister le rôle
+// retourné par le backend après authentification réussie.
 
 import { useState } from "react";
 import Button from "../components/button";
-import Input from "../components/input";
+import Input  from "../components/input";
 import { LOGO_URL } from "../constants";
+import { useAuth } from "../context/AuthContext";
 
-function useAuthForm() {
+function useAuthForm(login, onNavigate) {
   const [mode,     setMode]     = useState("login");
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
@@ -20,15 +23,43 @@ function useAuthForm() {
     return null;
   };
 
-const handleSubmit = (onNavigate) => {
-  const err = validate();
-  if (err) { setError(err); return; }
-  setError(""); setLoading(true);
-  setTimeout(() => {
-    setLoading(false);
-    onNavigate("chat");
-  }, 1800);
-};
+  const handleSubmit = () => {
+    const err = validate();
+    if (err) { setError(err); return; }
+    setError(""); setLoading(true);
+
+    // ─────────────────────────────────────────────────────────────────────
+    // INTÉGRATION BACKEND
+    // Remplacez ce setTimeout par votre appel API réel, par exemple :
+    //
+    //   const response = await fetch("/api/auth/login", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ email, password }),
+    //   });
+    //   const userFromBackend = await response.json();
+    //   // userFromBackend contient au minimum : { role, email, ... }
+    //   login(userFromBackend);
+    //   onNavigate("chat");
+    //
+    // Pour l'instant, on simule un utilisateur renvoyé par le backend.
+    // role 0 = admin | role 1 = utilisateur standard
+    // ─────────────────────────────────────────────────────────────────────
+    setTimeout(() => {
+      setLoading(false);
+
+      // Simulation : admin si email contient "admin", sinon user standard.
+      // À REMPLACER par la vraie réponse du backend.
+      const simulatedUser = {
+        email,
+        role: email.toLowerCase().includes("admin") ? 0 : 1,
+        name: email.split("@")[0],
+      };
+
+      login(simulatedUser);   // ← persist dans AuthContext + localStorage
+      onNavigate("chat");
+    }, 1800);
+  };
 
   const switchMode = (m) => {
     setMode(m); setError("");
@@ -39,10 +70,11 @@ const handleSubmit = (onNavigate) => {
 }
 
 export default function Auth({ onNavigate }) {
+  const { login } = useAuth();    // ← récupération de login() depuis le context
   const {
     mode, email, setEmail, password, setPassword,
     confirm, setConfirm, error, loading, handleSubmit, switchMode,
-  } = useAuthForm();
+  } = useAuthForm(login, onNavigate);
 
   return (
     <div
@@ -145,18 +177,23 @@ export default function Auth({ onNavigate }) {
           />
         )}
 
-       <Button variant="submit" onClick={() => handleSubmit(onNavigate)} disabled={loading}>
-  {loading
-    ? "AUTHENTICATING..."
-    : mode === "login"
-    ? "INITIATE SESSION"
-    : "CREATE ACCOUNT"
-  }
-</Button>
+        <Button variant="submit" onClick={handleSubmit} disabled={loading}>
+          {loading
+            ? "AUTHENTICATING..."
+            : mode === "login"
+            ? "INITIATE SESSION"
+            : "CREATE ACCOUNT"
+          }
+        </Button>
+
+        {/* Hint pour les tests */}
+        <div className="mt-3 text-center text-[0.65rem] text-[#4a7090] tracking-[0.05em] font-body">
+          💡 Testez avec <span className="text-[#7aa3c0]">admin@example.com</span> (role 0) ou <span className="text-[#7aa3c0]">user@example.com</span> (role 1)
+        </div>
 
         <button
           onClick={() => onNavigate("home")}
-          className="block w-full text-center mt-6 text-[0.78rem] text-[#7aa3c0] tracking-[0.1em] bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-accent font-body"
+          className="block w-full text-center mt-4 text-[0.78rem] text-[#7aa3c0] tracking-[0.1em] bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-accent font-body"
         >
           ← Return to <span className="text-accent2">Socilis</span>
         </button>

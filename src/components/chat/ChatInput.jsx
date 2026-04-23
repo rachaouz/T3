@@ -46,7 +46,7 @@ export default function ChatInput({ darkMode, input, loading, selectedModel, onM
               borderRadius: "3px", transition: "color 0.15s", flexShrink: 0,
             }}>×</button>
           )}
-          <button onClick={onSend} disabled={!canSend} style={{
+          <button onClick={() => onSend()} disabled={!canSend} style={{
             padding: "7px 16px",
             background: canSend ? `linear-gradient(135deg, ${th.accentDim}, ${th.accent})` : th.accentSubtle,
             border: "none", borderRadius: "6px",

@@ -5,6 +5,8 @@ import ChatInput       from "../components/chat/ChatInput";
 import MessageBubble   from "../components/chat/MessageBubble";
 import TypingIndicator from "../components/chat/TypingIndicator";
 import SettingsModal   from "../components/chat/SettingsModal";
+import CreateUserModal from "../components/chat/settings/CreateUserModal";
+import DeleteUserModal from "../components/chat/settings/DeleteUserModal";
 import { t }           from "../components/chat/ChatTheme";
 import { MODELS }      from "../components/chat/ModelSelector";
 
@@ -26,6 +28,8 @@ export default function ChatbotPage() {
   const [selectedChat,  setSelectedChat]  = useState(null);
   const [activeIOC,     setActiveIOC]     = useState(null);
   const [selectedModel, setSelectedModel] = useState(MODELS[0].id);
+  // State des sous-modals admin — ici pour survivre à la fermeture de SettingsModal
+  const [adminModal,    setAdminModal]    = useState(null); // "create" | "delete" | null
   const bottomRef = useRef();
   const th = t(darkMode);
 
@@ -68,45 +72,25 @@ export default function ChatbotPage() {
     setLoading(false);
   };
 
-  const handleSelectIOC = (type) => {
-    setActiveIOC(type);
-    setInput(`[${type}] `);
-  };
-
-  const handleNewChat = () => {
-    setMessages([makeInitMsg()]);
-    setSelectedChat(null);
-    setInput("");
-    setActiveIOC(null);
-    setLoading(false);
-  };
+  const handleSelectIOC = (type) => { setActiveIOC(type); setInput(`[${type}] `); };
+  const handleNewChat   = () => { setMessages([makeInitMsg()]); setSelectedChat(null); setInput(""); setActiveIOC(null); setLoading(false); };
 
   return (
-    <div style={{
-      display: "flex", height: "100vh",
-      background: th.bg,
-      fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-      color: th.text,
-      overflow: "hidden",
-    }}>
-      <div style={{
-        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
-        backgroundImage: darkMode
-          ? `linear-gradient(rgba(0,168,255,0.025) 1px, transparent 1px),
-             linear-gradient(90deg, rgba(0,168,255,0.025) 1px, transparent 1px)`
-          : "none",
-        backgroundSize: "40px 40px",
-      }} />
+    <div style={{ display: "flex", height: "100vh", background: th.bg, fontFamily: "'JetBrains Mono', 'Fira Code', monospace", color: th.text, overflow: "hidden" }}>
+      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, backgroundImage: darkMode ? `linear-gradient(rgba(0,168,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,168,255,0.025) 1px, transparent 1px)` : "none", backgroundSize: "40px 40px" }} />
 
+      {/* Modals — tous au même niveau pour éviter les problèmes de montage/démontage */}
       {settingsOpen && (
-        <SettingsModal onClose={() => setSettingsOpen(false)} darkMode={darkMode} setDarkMode={setDarkMode} />
+        <SettingsModal
+          onClose={() => setSettingsOpen(false)}
+          darkMode={darkMode} setDarkMode={setDarkMode}
+          onOpenAdminModal={(type) => { setSettingsOpen(false); setAdminModal(type); }}
+        />
       )}
+      {adminModal === "create" && <CreateUserModal darkMode={darkMode} onClose={() => setAdminModal(null)} />}
+      {adminModal === "delete" && <DeleteUserModal darkMode={darkMode} onClose={() => setAdminModal(null)} />}
 
-      <ChatSidebar
-        open={sidebarOpen} darkMode={darkMode}
-        selectedChat={selectedChat} onSelectChat={setSelectedChat}
-        onNewChat={handleNewChat}
-      />
+      <ChatSidebar open={sidebarOpen} darkMode={darkMode} selectedChat={selectedChat} onSelectChat={setSelectedChat} onNewChat={handleNewChat} />
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 1 }}>
         <ChatTopBar
@@ -116,14 +100,8 @@ export default function ChatbotPage() {
           activeIOC={activeIOC} onSelectIOC={handleSelectIOC}
         />
 
-        <div style={{
-          flex: 1, overflowY: "auto", padding: "20px 24px",
-          scrollbarWidth: "thin",
-          scrollbarColor: `${th.scrollThumb} transparent`,
-        }}>
-          {messages.map(msg => (
-            <MessageBubble key={msg.id} msg={msg} darkMode={darkMode} />
-          ))}
+        <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", scrollbarWidth: "thin", scrollbarColor: `${th.scrollThumb} transparent` }}>
+          {messages.map(msg => <MessageBubble key={msg.id} msg={msg} darkMode={darkMode} />)}
           {loading && <TypingIndicator darkMode={darkMode} />}
           <div ref={bottomRef} />
         </div>
@@ -138,14 +116,8 @@ export default function ChatbotPage() {
       </div>
 
       <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes typingDot {
-          0%, 100% { opacity: 0.3; transform: scale(0.8); }
-          50%       { opacity: 1;   transform: scale(1.2); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes typingDot { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: ${th.scrollThumb}; border-radius: 2px; }
