@@ -23,16 +23,23 @@ export default function Button({ children, onClick, variant = "hero", disabled }
       <button
         onClick={onClick}
         disabled={disabled}
-        className="
-          w-full py-[0.9rem] mt-2
-          bg-gradient-to-br from-[rgba(0,212,255,0.15)] to-[rgba(0,80,150,0.25)]
-          border border-[rgba(0,212,255,0.4)] text-accent
-          font-display text-[0.72rem] tracking-[0.25em] uppercase
-          clip-submit cursor-pointer transition-all duration-200
-          hover:enabled:bg-gradient-to-br hover:enabled:from-[rgba(0,212,255,0.25)]
-          hover:enabled:to-[rgba(0,80,150,0.4)] hover:enabled:shadow-accent
-          hover:enabled:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed
-        "
+        style={{
+          display:"flex", alignItems:"center", justifyContent:"center", gap:"8px",
+          width:"100%", marginTop:"8px",
+          padding:"10px 22px",
+          background:"rgba(0,212,255,0.08)",
+          border:"1.5px solid #00d4ff",
+          borderRadius:"999px",
+          color:"#00d4ff",
+          fontSize:"0.78rem", letterSpacing:"0.2em",
+          fontFamily:"'JetBrains Mono',monospace",
+          fontWeight:"700", cursor: disabled ? "not-allowed" : "pointer",
+          boxShadow:"0 0 16px rgba(0,212,255,0.22)",
+          transition:"all 0.2s",
+          opacity: disabled ? 0.5 : 1,
+        }}
+        onMouseEnter={e => { if (!disabled) { e.currentTarget.style.background="rgba(0,212,255,0.18)"; e.currentTarget.style.boxShadow="0 0 28px rgba(0,212,255,0.40)"; }}}
+        onMouseLeave={e => { e.currentTarget.style.background="rgba(0,212,255,0.08)"; e.currentTarget.style.boxShadow="0 0 16px rgba(0,212,255,0.22)"; }}
       >
         {children}
       </button>

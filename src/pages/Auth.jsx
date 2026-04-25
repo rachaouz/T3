@@ -1,7 +1,3 @@
-// src/pages/Auth.jsx
-// MODIFICATION RBAC : intégration de useAuth().login() pour persister le rôle
-// retourné par le backend après authentification réussie.
-
 import { useState } from "react";
 import Button from "../components/button";
 import Input  from "../components/input";
@@ -100,7 +96,7 @@ export default function Auth({ onNavigate }) {
           <img
             src={LOGO_URL}
             alt="Socilis"
-            className="h-14 w-auto mb-2 drop-shadow-[0_0_16px_rgba(0,212,255,0.6)]"
+            className="h-20 w-auto mb-2 drop-shadow-[0_0_16px_rgba(0,212,255,0.6)]"
           />
           <div
             className="font-display font-black tracking-[0.25em] drop-shadow-[0_0_30px_rgba(0,212,255,0.6)]"
@@ -150,10 +146,6 @@ export default function Auth({ onNavigate }) {
           {loading ? "AUTHENTICATING..." : "INITIATE SESSION"}
         </Button>
 
-        {/* Hint pour les tests */}
-        <div className="mt-3 text-center text-[0.65rem] text-[#4a7090] tracking-[0.05em] font-body">
-          💡 Testez avec <span className="text-[#7aa3c0]">admin@example.com</span> (role 0) ou <span className="text-[#7aa3c0]">user@example.com</span> (role 1)
-        </div>
 
         <button
           onClick={() => onNavigate("home")}
