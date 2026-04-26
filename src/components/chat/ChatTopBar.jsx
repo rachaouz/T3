@@ -1,4 +1,4 @@
-import { t } from "./ChatTheme";
+import { t } from "./chatTheme";
 
 const IOC_TYPES = [
   { type: "HASH",   icon: "⬡", color: "#a78bfa" },

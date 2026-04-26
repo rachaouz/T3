@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { t } from "./ChatTheme";
+import { t } from "./chatTheme";
 
 const MOCK_HISTORY = [
   { id: 1, title: "Analyse IP 192.168.1.1",  date: "Aujourd'hui", preview: "Score: 85/100 · Malicieux" },

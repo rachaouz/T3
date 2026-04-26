@@ -76,12 +76,8 @@ function GlowingSphere() {
           <img
             src={LOGO_URL}
             alt="Socilis"
-<<<<<<< HEAD
             className="w-[36%] h-auto drop-shadow-[0_0_32px_rgba(0,212,255,0.95)] animate-[corePulse_4s_ease-in-out_infinite]"
             style={{ filter: "drop-shadow(0 0 18px rgba(127,216,50,0.6)) drop-shadow(0 0 40px rgba(0,212,255,0.5))" }}
-=======
-            className="w-[22%] h-auto drop-shadow-[0_0_24px_rgba(0,212,255,0.9)] animate-[corePulse_4s_ease-in-out_infinite]"
->>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
           />
         </div>
 

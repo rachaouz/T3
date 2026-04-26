@@ -7,7 +7,7 @@ import TypingIndicator from "../components/chat/TypingIndicator";
 import SettingsModal   from "../components/chat/SettingsModal";
 import CreateUserModal from "../components/chat/settings/CreateUserModal";
 import DeleteUserModal from "../components/chat/settings/DeleteUserModal";
-import { t }           from "../components/chat/ChatTheme";
+import { t }           from "../components/chat/chatTheme";
 import { MODELS }      from "../components/chat/ModelSelector";
 import { detectInputType, stripIOCPrefix, TYPE_LABELS } from "../utils/iocDetector";
 

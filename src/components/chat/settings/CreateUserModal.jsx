@@ -17,10 +17,7 @@ export default function CreateUserModal({ darkMode, onClose }) {
       ) : (
         <>
           <Field label="NOM COMPLET"   darkMode={darkMode} value={form.name}     onChange={set("name")}     placeholder="Ex: Ahmed Benali"    error={errors.name} />
-<<<<<<< HEAD
           <Field label="PSEUDO"        darkMode={darkMode} value={form.pseudo}   onChange={set("pseudo")}   placeholder="Ex: a.benali"        error={errors.pseudo} />
-=======
->>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
           <Field label="EMAIL"         darkMode={darkMode} value={form.email}    onChange={set("email")}    placeholder="analyst@mobilis.dz"  error={errors.email} type="email" />
           <Field label="MOT DE PASSE"  darkMode={darkMode} value={form.password} onChange={set("password")} placeholder="••••••••"            error={errors.password} type="password" />
 

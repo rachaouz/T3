@@ -60,7 +60,7 @@ export default function SplashPage() {
           animation: phase === "text" ? "spinRing 6s linear infinite reverse" : "none",
         }} />
         <img
-          src="public\logo socilis.webp"
+          src="/logo socilis.webp"
           alt="SOCILIS"
           style={{
             width: "160px", height: "160px", objectFit: "contain",
