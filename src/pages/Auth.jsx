@@ -1,8 +1,13 @@
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import Button from "../components/button";
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 import Input  from "../components/input";
 import { LOGO_URL } from "../constants";
 import { useAuth } from "../context/AuthContext";
 
+<<<<<<< HEAD
 // ── Shared button style ──────────────────────────────────────────────────────
 const BTN_STYLE = {
   display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
@@ -19,6 +24,8 @@ const BTN_STYLE = {
   transition: "all 0.2s",
 };
 
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 function useAuthForm(login, onNavigate) {
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
@@ -67,6 +74,7 @@ function useAuthForm(login, onNavigate) {
   return { email, setEmail, password, setPassword, error, loading, handleSubmit };
 }
 
+<<<<<<< HEAD
 // ── ForgotPasswordModal ──────────────────────────────────────────────────────
 function ForgotPasswordModal({ onClose }) {
   const [resetEmail, setResetEmail] = useState("");
@@ -216,6 +224,8 @@ function ForgotPasswordModal({ onClose }) {
 }
 
 // ── Auth page ────────────────────────────────────────────────────────────────
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 export default function Auth({ onNavigate }) {
   const { login } = useAuth();
   const {
@@ -223,8 +233,11 @@ export default function Auth({ onNavigate }) {
     error, loading, handleSubmit,
   } = useAuthForm(login, onNavigate);
 
+<<<<<<< HEAD
   const [showForgot, setShowForgot] = useState(false);
 
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
   return (
     <div
       className="relative min-h-screen flex items-center justify-center p-8 overflow-hidden"
@@ -261,6 +274,7 @@ export default function Auth({ onNavigate }) {
         <div className="flex flex-col items-center mb-2">
           <img
             src={LOGO_URL}
+<<<<<<< HEAD
             alt="Socialis"
             className="h-20 w-auto mb-2 drop-shadow-[0_0_16px_rgba(0,212,255,0.6)]"
           />
@@ -269,6 +283,16 @@ export default function Auth({ onNavigate }) {
             style={{ fontSize: "1.8rem", filter: "drop-shadow(0 0 20px rgba(127,216,50,0.4))" }}
           >
             <span style={{ color: "#ffffff" }}>SOC</span><span style={{ color: "#7FD832" }}>ILIS</span>
+=======
+            alt="Socilis"
+            className="h-20 w-auto mb-2 drop-shadow-[0_0_16px_rgba(0,212,255,0.6)]"
+          />
+          <div
+            className="font-display font-black tracking-[0.25em] drop-shadow-[0_0_30px_rgba(0,212,255,0.6)]"
+            style={{ fontSize: "1.8rem" }}
+          >
+            <span style={{ color: "#ffffff" }}>SOC</span><span style={{ color: "#00e676" }}>ILIS</span>
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
           </div>
         </div>
 
@@ -276,6 +300,7 @@ export default function Auth({ onNavigate }) {
           // Secure Access Portal
         </div>
 
+<<<<<<< HEAD
         {/* ── LOGIN button (identical style to INITIATE SESSION) ── */}
         <button
           onClick={handleSubmit}
@@ -291,6 +316,15 @@ export default function Auth({ onNavigate }) {
         >
           {loading ? "AUTHENTICATING..." : "LOGIN"}
         </button>
+=======
+        {/* LOGIN label (no tabs) */}
+        <div
+          className="flex items-center justify-center mb-8 py-[0.65rem] border border-[rgba(0,230,118,0.2)] bg-[rgba(0,230,118,0.06)]"
+          style={{ fontFamily: "monospace", fontSize: "0.65rem", letterSpacing: "0.15em", color: "#00e676" }}
+        >
+          LOGIN
+        </div>
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 
         {/* Error */}
         {error && (
@@ -316,6 +350,7 @@ export default function Auth({ onNavigate }) {
           placeholder="••••••••"
         />
 
+<<<<<<< HEAD
         {/* Forgot password link */}
         <div className="flex justify-end mb-4 -mt-2">
           <button
@@ -349,17 +384,29 @@ export default function Auth({ onNavigate }) {
         >
           {loading ? "AUTHENTICATING..." : "INITIATE SESSION"}
         </button>
+=======
+        <Button variant="submit" onClick={handleSubmit} disabled={loading}>
+          {loading ? "AUTHENTICATING..." : "INITIATE SESSION"}
+        </Button>
+
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 
         <button
           onClick={() => onNavigate("home")}
           className="block w-full text-center mt-4 text-[0.78rem] text-[#7aa3c0] tracking-[0.1em] bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-accent font-body"
         >
+<<<<<<< HEAD
           ← Return to <span style={{ color: "#7FD832" }}>Socialis</span>
         </button>
       </div>
 
       {/* Forgot Password Modal */}
       {showForgot && <ForgotPasswordModal onClose={() => setShowForgot(false)} />}
+=======
+          ← Return to <span style={{ color: "#00e676" }}>Socilis</span>
+        </button>
+      </div>
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
     </div>
   );
 }

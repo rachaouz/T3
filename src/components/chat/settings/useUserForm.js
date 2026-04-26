@@ -5,7 +5,11 @@ const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
 // ─── Hook : création d'utilisateur ──────────────────────────────────────────
 export function useCreateForm(onDone) {
+<<<<<<< HEAD
   const [form, setForm]     = useState({ name: "", pseudo: "", email: "", password: "", role: "1" });
+=======
+  const [form, setForm]     = useState({ name: "", email: "", password: "", role: "1" });
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
@@ -14,7 +18,10 @@ export function useCreateForm(onDone) {
   const validate = () => {
     const e = {};
     if (!form.name.trim())              e.name     = "Nom requis";
+<<<<<<< HEAD
     if (!form.pseudo.trim())            e.pseudo   = "Pseudo requis";
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
     if (!validateEmail(form.email))     e.email    = "Email invalide";
     if (form.password.length < 6)       e.password = "6 caractères minimum";
     return e;
@@ -35,14 +42,20 @@ export function useCreateForm(onDone) {
 // ─── Hook : suppression d'utilisateur (2 étapes) ────────────────────────────
 export function useDeleteForm(onDone) {
   const [email, setEmail]     = useState("");
+<<<<<<< HEAD
   const [pseudo, setPseudo]   = useState("");
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
   const [confirm, setConfirm] = useState("");
   const [step, setStep]       = useState(1);
   const [error, setError]     = useState("");
   const [success, setSuccess] = useState(false);
 
   const nextStep = () => {
+<<<<<<< HEAD
     if (!pseudo.trim())        { setError("Pseudo requis"); return; }
+=======
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
     if (!validateEmail(email)) { setError("Email invalide"); return; }
     setError(""); setStep(2);
   };
@@ -57,5 +70,9 @@ export function useDeleteForm(onDone) {
     setTimeout(onDone, 1400);
   };
 
+<<<<<<< HEAD
   return { email, setEmail, pseudo, setPseudo, confirm, setConfirm, step, error, setError, success, nextStep, back, submit };
+=======
+  return { email, setEmail, confirm, setConfirm, step, error, setError, success, nextStep, back, submit };
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 }

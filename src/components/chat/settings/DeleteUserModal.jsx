@@ -4,7 +4,11 @@ import ModalShell from "./ModalShell";
 import { useDeleteForm } from "./useUserForm";
 
 export default function DeleteUserModal({ darkMode, onClose }) {
+<<<<<<< HEAD
   const { email, setEmail, pseudo, setPseudo, confirm, setConfirm, step, error, setError, success, nextStep, back, submit } = useDeleteForm(onClose);
+=======
+  const { email, setEmail, confirm, setConfirm, step, error, setError, success, nextStep, back, submit } = useDeleteForm(onClose);
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 
   const inp = { ...inputField(darkMode, !!error), color: darkMode ? "#e2f0ff" : "#0a1628" };
 
@@ -22,6 +26,7 @@ export default function DeleteUserModal({ darkMode, onClose }) {
             Entrez l'email de l'utilisateur à supprimer. Cette action est irréversible.
           </p>
           <div style={{ marginBottom: "12px" }}>
+<<<<<<< HEAD
             <label style={fieldLabel}>PSEUDO DE L'UTILISATEUR</label>
             <input style={{ ...inputField(darkMode, false), color: darkMode ? "#e2f0ff" : "#0a1628" }} type="text" value={pseudo} placeholder="Ex: a.benali"
               onChange={e => { setPseudo(e.target.value); setError(""); }} />
@@ -32,6 +37,13 @@ export default function DeleteUserModal({ darkMode, onClose }) {
               onChange={e => { setEmail(e.target.value); setError(""); }} />
           </div>
           {error && <div style={errorText}>{error}</div>}
+=======
+            <label style={fieldLabel}>EMAIL DE L'UTILISATEUR</label>
+            <input style={inp} type="email" value={email} placeholder="utilisateur@mobilis.dz"
+              onChange={e => { setEmail(e.target.value); setError(""); }} />
+            {error && <div style={errorText}>{error}</div>}
+          </div>
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
           <div style={{ display: "flex", gap: "8px" }}>
             <button onClick={onClose}  style={btn("transparent", "1px solid rgba(0,168,255,0.2)", "rgba(160,210,255,0.55)")}>ANNULER</button>
             <button onClick={nextStep} style={btn("rgba(239,68,68,0.1)", "1px solid rgba(239,68,68,0.35)", "#f87171")}>CONTINUER →</button>

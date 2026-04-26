@@ -441,6 +441,10 @@ export default function DashboardPage() {
   const [darkMode, setDarkMode]       = useState(true);
   const [selectedIOC, setSelectedIOC] = useState(null);
   const [filter, setFilter]           = useState("all");
+<<<<<<< HEAD
+=======
+  const [exportOpen, setExportOpen]   = useState(false);
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
   const navigate = useNavigate();
   const th = t(darkMode);
 
@@ -494,6 +498,26 @@ export default function DashboardPage() {
 
         <div style={{ flex:1 }}/>
 
+<<<<<<< HEAD
+=======
+        {/* Export */}
+        <div style={{ position:"relative" }}>
+          <button onClick={()=>setExportOpen(v=>!v)} style={{ display:"flex", alignItems:"center", gap:"8px", background:exportOpen?th.accentSubtle:"transparent", border:`1px solid ${exportOpen?th.borderActive:th.border}`, borderRadius:"6px", padding:"6px 16px", color:exportOpen?th.accent:th.textMuted, fontSize:"9px", letterSpacing:"2px", cursor:"pointer", fontFamily:"'JetBrains Mono',monospace", transition:"all 0.2s" }}>
+            <span>↓</span> EXPORTER <span style={{ fontSize:"7px" }}>▾</span>
+          </button>
+          {exportOpen && (
+            <div style={{ position:"absolute", right:0, top:"calc(100% + 8px)", background:darkMode?"#060d16":"#fff", border:`1px solid ${th.borderActive}`, borderRadius:"8px", overflow:"hidden", zIndex:200, minWidth:"200px", boxShadow:"0 12px 40px rgba(0,0,0,0.5)" }}>
+              <div style={{ padding:"8px 18px 6px", borderBottom:`1px solid ${th.border}` }}>
+                <span style={{ fontSize:"8px", letterSpacing:"2px", color:th.textFaint }}>FORMAT</span>
+              </div>
+              <Btn label="📄  CSV" action={()=>{exportCSV();setExportOpen(false);}}/>
+              <Btn label="📋  JSON" action={()=>{exportJSON();setExportOpen(false);}}/>
+              <Btn label="🖨  PDF (Imprimer)" action={()=>{exportPDF();setExportOpen(false);}}/>
+            </div>
+          )}
+        </div>
+
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
         <button onClick={()=>setDarkMode(v=>!v)} style={{ background:"transparent", border:`1px solid ${th.border}`, borderRadius:"5px", padding:"5px 10px", color:th.textMuted, fontSize:"12px", cursor:"pointer", transition:"all 0.2s" }}
           onMouseEnter={e=>{e.currentTarget.style.borderColor=th.borderActive;}}
           onMouseLeave={e=>{e.currentTarget.style.borderColor=th.border;}}>
@@ -564,6 +588,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
+      {exportOpen && <div onClick={()=>setExportOpen(false)} style={{ position:"fixed", inset:0, zIndex:10 }}/>}
+
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
       <style>{`
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }

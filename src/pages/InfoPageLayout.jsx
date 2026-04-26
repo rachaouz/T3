@@ -1,6 +1,10 @@
 import { LOGO_URL } from "../constants";
 
+<<<<<<< HEAD
 const GREEN = "#7FD832";
+=======
+const GREEN = "#00ff88";
+>>>>>>> b713c4a42ac216c69e9a7bce32e43b523f496f58
 const BG    = "#020a14";
 
 export default function InfoPageLayout({ onBack, badge, title, subtitle, children }) {
